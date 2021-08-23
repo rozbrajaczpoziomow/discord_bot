@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { Client, Intents } = require('discord.js');
+const { Client, Intents, MessageEmbed } = require('discord.js');
 const Config = require('./.config.json');
 const Refresh = require('./deploy_slash.js');
 const { readdirSync } = require('fs');
@@ -24,7 +24,7 @@ function Reload() {
 			commands.push(require(`./commands/${file}`));
 			console.log(`\t[+] Loaded ${file}`)
 		} catch(e) {
-			console.log(`\t[-] Failed loading ${file} - ${e}`)
+			console.log(`\t\t[!] Failed loading ${file} - ${e}`)
 		}
 	});
 	console.log('[+] Loading done!')
@@ -34,10 +34,11 @@ function Reload() {
 	Refresh(interactions, client);
 }
 
-client.on('ready', () => {
+client.on('ready', async () => {
 	console.log('Bot has logged in!');
 	Reload();
-	client.application?.fetch();
+	await client.application?.fetch();
+	module.exports.embed = new MessageEmbed().setColor('#ABCDEF').setFooter(`Bot owner: ${client.application?.owner?.tag}`);
 });
 
 client.on('interactionCreate', async interaction => {
@@ -49,7 +50,8 @@ client.on('interactionCreate', async interaction => {
 });
 
 module.exports = {
-	Reload: Reload
+	Reload: Reload,
+	file: path => path.split(/(\/|\\)/)[path.split(/(\/|\\)/).length - 1]
 }
 
 client.login(Config.token);

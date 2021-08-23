@@ -11,7 +11,7 @@ module.exports = {
 		}
 		await interaction.deferReply();
 		main.exports.Reload();
-		await interaction.editReply({ content: 'Done!'})
+		await interaction.editReply({ embeds: [ main.exports.embed.setDescription('Done!') ]})
 
 	}
 }
