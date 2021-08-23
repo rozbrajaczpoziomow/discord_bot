@@ -1,0 +1,25 @@
+{
+  "name": "discord_bot",
+  "version": "1.0.0",
+  "description": "saltAxAtlas's discord bot",
+  "main": "index.js",
+  "scripts": {
+    "run": "nodemon -w index.js -i commands -e js -V"
+  },
+  "author": "saltAxAtlas",
+  "license": "idfk what license",
+  "bugs": {
+    "url": "https://github.com/saltAxAtlas/discord_bot/issues"
+  },
+  "homepage": "https://github.com/saltAxAtlas/discord_bot",
+  "dependencies": {
+    "@discordjs/builders": "^0.5.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "nodemon": "^2.0.12"
+  }
+}
