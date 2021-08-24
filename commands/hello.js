@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'hello',
@@ -9,7 +10,7 @@ module.exports = {
 
 		await interaction.reply({
 				embeds: [
-					main.exports.embed.setDescription(
+					new MessageEmbed(main.exports.embed).setDescription(
 						`Hello, ${interaction.user.username}`
 					)
 				]

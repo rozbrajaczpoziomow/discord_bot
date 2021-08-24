@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 
 const capitalize = str => str.split``.map((char, ix) => ix === 0? char.toUpperCase() : char.toLowerCase()).join``;
 
@@ -103,7 +104,7 @@ module.exports = {
         if(warns.length !== 0)
             return await interaction.reply({
                     embeds: [
-                        main.exports.embed.setDescription(
+                        new MessageEmbed(main.exports.embed).setDescription(
                             warns.join`\n\n`
                         )
                     ], ephemeral: true
@@ -127,7 +128,7 @@ module.exports = {
 
         await interaction.reply({
                     embeds: [
-                        main.exports.embed.setDescription(
+                        new MessageEmbed(main.exports.embed).setDescription(
                             days.join`\n`
                         )
                     ]

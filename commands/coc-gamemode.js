@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'coc-gamemode',
@@ -7,7 +8,7 @@ module.exports = {
 
 		await interaction.reply({
 				embeds: [
-					main.exports.embed.setDescription(
+					new MessageEmbed(main.exports.embed).setDescription(
 						['Fastest', 'Shortest', 'Reverse'][Math.floor(Math.random() * 3)]
 					)
 				]

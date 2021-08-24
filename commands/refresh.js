@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	name: 'refresh',
@@ -11,7 +12,7 @@ module.exports = {
 		}
 		await interaction.deferReply();
 		main.exports.Reload();
-		await interaction.editReply({ embeds: [ main.exports.embed.setDescription('Done!') ]})
+		await interaction.editReply({ embeds: [ new MessageEmbed(main.exports.embed).setDescription('Done!') ]})
 
 	}
 }
