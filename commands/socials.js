@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = {
-	name: 'rules',
-	comm: new SlashCommandBuilder().setName('rules').setDescription('Display the rules of the server'),
+	name: 'socials',
+	comm: new SlashCommandBuilder().setName('socials').setDescription('saltAxAtlas\'s socials!'),
 	exec: async (interaction, client, main) => {
 
 		const socials = {

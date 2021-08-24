@@ -7,7 +7,9 @@ async function Refresh(commands, client) {
 	const rest = new REST({ version: '9' }).setToken(Config.token);
 
 	client.guilds.fetch();
-	let guilds = client.guilds.cache.map((guild, snowflake) => guild)
+	let guilds = client.guilds.cache.map((guild, snowflake) => guild);
+
+	// console.log(commands);
 
 	console.log(`[*] Reloading slash commands for ${guilds.length} guilds`)
 	for(guild of guilds) {
