@@ -76,7 +76,8 @@ const languages = {
     KOREAN:       ['월요일', '화요일 ', '수요일', '목요일', '금요일', '토요일', '일요일'],
     NAVAJO:       ['Damóo Biiskání', 'Naakijį́ Ndaʼanish', 'Tágíjį́ Ndaʼanish', 'Dį́ʼíjį́ Ndaʼanish', 'Ndaʼiiníísh', 'Yiską́ Damóo', 'Damóo'],
     KLINGON:      ['DaS­jaj', 'pov­jaj', 'ghItlh­jaj', 'logh­jaj', 'buq­jaj', 'loj­mIt­jaj', 'jaj wa’'],
-    PIG_LATIN:    ['Ondaymay', 'Uesdaytay', 'Ednesdayway', 'Ursdaythay', 'Idayfray', 'Aturdaysay', 'Undaysay']
+    PIG_LATIN:    ['Ondaymay', 'Uesdaytay', 'Ednesdayway', 'Ursdaythay', 'Idayfray', 'Aturdaysay', 'Undaysay'],
+    PIRATE:       ['Mondee', 'Tuesdee', 'Wednesdee', 'Thirsty', 'Frydee', 'Saturdee', 'Sun']
 }
 
 module.exports = {
@@ -121,8 +122,8 @@ module.exports = {
                 days.push(`\`${language[index].padEnd(padding)}\`: No stream`)
             else
                 days.push(`\`${language[index].padEnd(padding)}\`: `
-                    + `${String(day.from.hours + timezone.hours).padEnd(2, '0')}:${String(day.from.minutes + timezone.minutes).padEnd(2, '0')} - `
-                    + `${String(day.from.hours + timezone.hours + day.duration).padEnd(2, '0')}:${String(day.from.minutes + timezone.minutes).padEnd(2, '0')} -> `
+                    + `${String(day.from.hours + timezone.hours).padStart(2, '0')}:${String(day.from.minutes + timezone.minutes).padStart(2, '0')} - `
+                    + `${String(day.from.hours + timezone.hours + day.duration).padStart(2, '0')}:${String(day.from.minutes + timezone.minutes).padStart(2, '0')} -> `
                     + `${day.activities.join`, `}`)
         });
 

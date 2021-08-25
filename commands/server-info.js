@@ -35,7 +35,7 @@ module.exports = {
 
 		await interaction.editReply({
 				embeds: [
-					new MessageEmbed(main.exports.embed).setDescription(
+					new MessageEmbed(main.exports.embed).setTitle('Server info:').setDescription(
 						Object.keys(stats).map(stat => `\`${stat.padEnd(padding)}\`: ${stats[stat]}`).join`\n`
 					)
 				]

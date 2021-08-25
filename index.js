@@ -3,6 +3,7 @@ const { Client, Intents, MessageEmbed } = require('discord.js');
 const Config = require('./.config.json');
 const Refresh = require('./deploy_slash.js');
 const { readdirSync } = require('fs');
+const twitchSetup = require('./twitch.js');
 
 const client = new Client({
 	intents: [
@@ -37,10 +38,38 @@ function Reload() {
 	Refresh(interactions, client);
 }
 
+let lastLive = false;
+function postTwitch(isLive, uname) {
+	// console.log(lastLive, isLive, uname)
+	if(isLive && !lastLive) {
+		// 1st map: get the guild,
+		// 2nd map: fetch the channel,
+		// 3rd map: maps the channel to it's send method
+		// forEach: sends the message
+		Object.keys(Config.twitch.guildIds)
+			.map(gId     => client.guilds.cache.map(( guild, snowflake ) => guild).filter(guild => gId == guild.id)[0])
+			.map(async g => {return await g.channels.fetch(Config.twitch.guildIds[g.id])})
+			.map(ch      => ch.send)
+			.forEach(send => send(Config.twitch.content.replaceAll('$!', uname).replaceAll('$_', uname.toLowerCase())));
+	} else if(!isLive && lastLive) {
+		// 1st map: get the guild,
+		// 2nd map: fetch the channel,
+		// 3rd map: maps the channel to it's bulkDelete method
+		// forEach: deletes the last message
+		Object.keys(Config.twitch.guildIds)
+			.map(gId     => client.guilds.cache.map(( guild, snowflake ) => guild).filter(guild => gId == guild.id)[0])
+			.map(async g => {return await g.channels.fetch(Config.twitch.guildIds[g.id])})
+			.map(ch      => ch.bulkDelete)
+			.forEach(bulkDelete => bulkDelete(1));
+	}
+	lastLive = isLive;
+}
+
 client.on('ready', async () => {
 	console.log('Bot has logged in!');
 	Reload();
 	await client.application?.fetch();
+	await twitchSetup(module);
 	module.exports.embed = new MessageEmbed().setColor('#ABCDEF').setFooter(`Bot owner: ${client.application?.owner?.tag}`);
 });
 
@@ -55,6 +84,7 @@ client.on('interactionCreate', async interaction => {
 
 module.exports = {
 	Reload: Reload,
+	twitch: postTwitch,
 	file: path => path.split(/(\/|\\)/)[path.split(/(\/|\\)/).length - 1]
 }
 

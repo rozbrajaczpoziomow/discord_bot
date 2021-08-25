@@ -17,7 +17,7 @@ module.exports = {
 
 		await interaction.reply({
 				embeds: [
-					new MessageEmbed(main.exports.embed).setDescription(
+					new MessageEmbed(main.exports.embed).setTitle('Rules:').setDescription(
 						rules.map((rule, index) => `${index + 1}. ${rule}`).join`\n`
 					)
 				]
