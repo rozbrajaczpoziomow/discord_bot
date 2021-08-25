@@ -39,28 +39,24 @@ function Reload() {
 }
 
 let lastLive = false;
-function postTwitch(isLive, uname) {
+async function postTwitch(isLive, uname) {
 	// console.log(lastLive, isLive, uname)
 	if(isLive && !lastLive) {
 		// 1st map: get the guild,
-		// 2nd map: fetch the channel,
-		// 3rd map: maps the channel to it's send method
+		// 2nd map: get the channel,
 		// forEach: sends the message
 		Object.keys(Config.twitch.guildIds)
 			.map(gId     => client.guilds.cache.map(( guild, snowflake ) => guild).filter(guild => gId == guild.id)[0])
-			.map(async g => {return await g.channels.fetch(Config.twitch.guildIds[g.id])})
-			.map(ch      => ch.send)
-			.forEach(send => send(Config.twitch.content.replaceAll('$!', uname).replaceAll('$_', uname.toLowerCase())));
+			.map(g => g.channels.cache.get(Config.twitch.guildIds[g.id]))
+			.forEach(ch => ch.send(Config.twitch.content.replaceAll('$!', uname).replaceAll('$_', uname.toLowerCase())));
 	} else if(!isLive && lastLive) {
 		// 1st map: get the guild,
-		// 2nd map: fetch the channel,
-		// 3rd map: maps the channel to it's bulkDelete method
+		// 2nd map: get the channel,
 		// forEach: deletes the last message
 		Object.keys(Config.twitch.guildIds)
 			.map(gId     => client.guilds.cache.map(( guild, snowflake ) => guild).filter(guild => gId == guild.id)[0])
-			.map(async g => {return await g.channels.fetch(Config.twitch.guildIds[g.id])})
-			.map(ch      => ch.bulkDelete)
-			.forEach(bulkDelete => bulkDelete(1));
+			.map(g => g.channels.cache.get(Config.twitch.guildIds[g.id]))
+			.forEach(ch => ch.bulkDelete(1));
 	}
 	lastLive = isLive;
 }
