@@ -12,8 +12,11 @@ const client = new Client({
 
 const commands = [];
 const interactions = [];
+let buttonHandler = require('./button_handler.js');
 
 function Reload() {
+	let buttonHandler = require('./button_handler.js');
+	
 	commands.length = 0;
 	interactions.length = 0;
 
@@ -42,7 +45,8 @@ client.on('ready', async () => {
 });
 
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
+	if(interaction.isButton()) return buttonHandler(interaction, client, module);
+	if(!interaction.isCommand()) return;
 
 	console.log(`Slash command used: ${interaction.commandName} by ${interaction.user.tag}`)
 

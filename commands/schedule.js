@@ -81,7 +81,7 @@ const languages = {
 
 module.exports = {
     name: 'schedule',
-    comm: new SlashCommandBuilder().setName('schedule').setDescription('Make the bot say something')
+    comm: new SlashCommandBuilder().setName('schedule').setDescription('Display the stream schedule')
             .addStringOption(op => op.setName('timezone').setDescription('Change the timezone (Default: EST)'))
             .addStringOption(op => op.setName('language').setDescription('Change the language (Default: English)')),
     exec: async (interaction, client, main) => {
